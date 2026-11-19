@@ -169,7 +169,19 @@ test("registry: normalise keys, drop bad entries, wildcard fallback", () => {
   assert.equal(roomFor(registry, G), "http://localhost:8378");
   assert.equal(roomFor(registry, "0x" + "2".repeat(64)), "http://127.0.0.1:8377");
   assert.equal(roomFor({}, G), null);
-  assert.deepEqual(normalizeRegistry(null), { registry: {}, rejected: [] });
+  assert.deepEqual(normalizeRegistry(null), { registry: {}, names: {}, rejected: [] });
+});
+
+test("registry values may be {host, name}", () => {
+  const H = "0x" + "3".repeat(64);
+  const { registry, names, rejected } = normalizeRegistry({
+    [G]: { host: "http://127.0.0.1:8378", name: "mummai" },
+    [H]: { host: "http://127.0.0.1:8377" },
+    ["0x" + "4".repeat(64)]: { name: "no host" },
+  });
+  assert.deepEqual(registry, { [G]: "http://127.0.0.1:8378", [H]: "http://127.0.0.1:8377" });
+  assert.deepEqual(names, { [G]: "mummai" });
+  assert.equal(rejected.length, 1);
 });
 
 test("known chain names", () => {

@@ -14,11 +14,13 @@ let lastResult = null; // { text, ref|null }
 // Registry (SPEC §8): merged from window.metariumRegistry and postMessage.
 
 const registry = {};
+const registryNames = {}; // genesis -> display name the extension gave
 const rejectedHosts = new Map(); // key -> reason, deduplicated across re-reads
 
 function mergeRegistry(obj) {
-  const { registry: clean, rejected } = normalizeRegistry(obj);
+  const { registry: clean, names, rejected } = normalizeRegistry(obj);
   Object.assign(registry, clean);
+  Object.assign(registryNames, names);
   for (const r of rejected) rejectedHosts.set(r.key, r.reason);
 }
 
@@ -37,7 +39,7 @@ window.addEventListener("message", (event) => {
   if (msg.version !== 1) return;
   mergeRegistry(msg.registry);
   readGlobalRegistry();
-  if (lastResult && lastResult.ref) renderRoom(lastResult.ref);
+  if (lastResult && lastResult.ref) show(lastResult.text);
 });
 
 readGlobalRegistry();
@@ -194,7 +196,7 @@ function show(text) {
   $("fields-wrap").hidden = false;
   $("raw-wrap").hidden = true;
 
-  const name = chainName(ref.genesis);
+  const name = chainName(ref.genesis) || registryNames[ref.genesis] || null;
   $("f-chain").textContent = name || "Unknown chain";
   $("f-genesis").textContent = ref.genesis;
   $("f-channel").textContent = String(ref.channel);

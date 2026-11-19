@@ -148,12 +148,15 @@ A scanner page knows no rooms of its own. A browser extension the person install
 serves which chain. The registry maps genesis to room origin:
 
 ```json
-{ "0x93e11e6aa35ca9ff3e73cb99e5da6cf4bea733326a214d490d0c4fbf72451394": "http://localhost:8378",
-  "*": "http://localhost:8378" }
+{ "0x93e11e6aa35ca9ff3e73cb99e5da6cf4bea733326a214d490d0c4fbf72451394": { "host": "http://127.0.0.1:8378", "name": "mummai" },
+  "*": "http://127.0.0.1:8378" }
 ```
 
 - Keys are genesis hashes (any case; the page lowercases them) or `"*"`, a fallback for any chain.
-- Values are **origins** only: no path, query, fragment or credentials. `http://` is accepted only for
+- Each value is either an origin string or an object `{ "host": <origin>, "name": <text, optional> }`.
+  `name` is display text for the chain (shown when the page's own table has no name for it); it is never
+  used to resolve. Unknown object fields are ignored.
+- Hosts are **origins** only: no path, query, fragment or credentials. `http://` is accepted only for
   loopback hosts (`localhost`, `*.localhost`, `127.0.0.1`, `[::1]`); `https://` for any host. The page
   drops entries that do not meet this and MAY show what it dropped.
 - Lookup: the exact genesis first, then `"*"`.
@@ -166,7 +169,7 @@ Two ways to deliver it; a page MUST support both and merge them (later entries w
 2. **postMessage** (preferred; works from an isolated-world content script and is not blocked by the
    page's Content-Security-Policy):
    ```js
-   window.postMessage({ type: "metarium:registry", version: 1, registry: { "<genesis>": "<origin>" } },
+   window.postMessage({ type: "metarium:registry", version: 1, registry: { "<genesis>": { host: "<origin>", name: "<chain name>" } } },
                       window.location.origin);
    ```
    The page accepts it only when `event.source === window` and `event.origin === location.origin`.
@@ -176,6 +179,10 @@ On start the page announces itself once, so an extension can answer instead of g
 ```js
 window.postMessage({ type: "metarium:registry-request", version: 1 }, window.location.origin);
 ```
+
+The page MAY send the same message again later (for example before showing a scan); an extension answers
+every `metarium:registry-request` with a `metarium:registry` message. The page ignores its own
+request messages and anything else that is not a `metarium:registry` of version 1.
 
 The page never fetches the room, never probes localhost, and never navigates on its own: when a room is
 known for the scanned chain it shows an "Open in your room" link to the §7 URL, opened only on the
