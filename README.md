@@ -1,7 +1,7 @@
 # metarium QR scanner
 
 A static web page that scans a `metarium://` QR code and shows what it names: the chain, the channel,
-the lookup path, the version pin and the label, if there is one. Meant to live at metarium.org/qrscanner.
+the lookup path, the version pin and the label, if there is one. Meant to live at https://metarium.net/qrscanner.
 
 **It hosts nothing and saves nothing.** No backend, no database, no cookies, no localStorage, no
 analytics, no fonts or scripts from anywhere else. The page's Content-Security-Policy sets
