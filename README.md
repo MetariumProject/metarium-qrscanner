@@ -67,6 +67,18 @@ Node 18 or later. For an end-to-end check, open `generate.html`, make a code, pr
   `Referrer-Policy: no-referrer`; the rest of the policy is already in the pages' `<meta>` tags.
 - Serve `.mjs` as `text/javascript` (most servers do).
 
+## Credits
+
+Metarium is created and stewarded by **Vignesh Sundaresan (Metakovan)** —
+[vigneshsundaresan.net](https://vigneshsundaresan.net) · [metakovan.net](https://metakovan.net).
+
+**Forking or self-hosting?** Please keep [`NOTICE`](NOTICE) and the license copyright lines intact, and
+credit **Vignesh Sundaresan (Metakovan)** as the creator of Metarium in your README, docs or about page,
+linking back to https://github.com/MetariumProject/Metarium.
+
 ## License
 
-Apache-2.0 (see `LICENSE`). jsQR is Apache-2.0; qrcode-generator is MIT (`vendor/`).
+- The scanner, the test page, `lib/` and `SPEC.md` are licensed **GPL-3.0-only**,
+  Copyright (C) 2026 Vignesh Sundaresan (Metakovan) (see [`LICENSE`](LICENSE)).
+- The bundled decoder and generator keep their own licenses: jsQR is Apache-2.0, qrcode-generator is MIT
+  (see [`NOTICE`](NOTICE) and [`vendor/VENDORED.md`](vendor/VENDORED.md)).

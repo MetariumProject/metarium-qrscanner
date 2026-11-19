@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Vignesh Sundaresan (Metakovan). SPDX-License-Identifier: GPL-3.0-only
 // Scanner page. No storage, no network: everything stays in this tab.
 import { parse, chainName, normalizeRegistry, roomFor, roomURL } from "../lib/metarium-uri.mjs";
 

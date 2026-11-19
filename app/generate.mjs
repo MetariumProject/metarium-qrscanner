@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Vignesh Sundaresan (Metakovan). SPDX-License-Identifier: GPL-3.0-only
 // Test-code generator. Builds the canonical URI and draws it; nothing is sent or stored.
 import { format, parse, KNOWN_CHAINS } from "../lib/metarium-uri.mjs";
 

@@ -1,0 +1,34 @@
+metarium-qrscanner
+==================
+
+The metarium:// scanner, its test-code page, the reference library (lib/) and
+the scheme specification (SPEC.md) are Copyright (C) 2026 Vignesh Sundaresan
+(Metakovan) and are licensed under the GNU General Public License v3.0 only.
+See the LICENSE file at the repository root.
+
+Bundled third-party code keeps its own license and notices (see vendor/VENDORED.md):
+  - jsQR 1.4.0, Copyright Cosmo Wolfe and contributors, Apache License 2.0
+    (vendor/jsqr-1.4.0/LICENSE)
+  - qrcode-generator 1.4.4, Copyright (c) 2009 Kazuhiko Arase, MIT License
+    (vendor/qrcode-generator-1.4.4/LICENSE)
+
+Credits
+-------
+Metarium is created and stewarded by Vignesh Sundaresan (Metakovan), blockchain
+architect — https://vigneshsundaresan.net · https://metakovan.net
+https://github.com/MetariumProject/Metarium
+
+If you fork or self-host this scanner, please:
+  - keep this NOTICE file and the copyright lines intact (the GPL-3.0 requires
+    this); and
+  - credit "Vignesh Sundaresan (Metakovan)" as the creator of Metarium in your
+    fork's README, documentation, or about page, with a link to
+    https://github.com/MetariumProject/Metarium.
+
+Part of the mnembyte ecosystem:
+  https://mnembyte.net
+  https://padimai.net
+  https://mnem.com
+  https://onemai.net
+  https://metarium.net
+  https://yettagam.net
