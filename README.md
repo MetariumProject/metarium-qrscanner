@@ -69,7 +69,7 @@ Node 18 or later. For an end-to-end check, open `generate.html`, make a code, pr
 
 ## Credits
 
-Metarium is created and stewarded by **Vignesh Sundaresan (Metakovan)** —
+Metarium is created and maintained by **Vignesh Sundaresan (Metakovan)** —
 [vigneshsundaresan.net](https://vigneshsundaresan.net) · [metakovan.net](https://metakovan.net).
 
 **Forking or self-hosting?** Please keep [`NOTICE`](NOTICE) and the license copyright lines intact, and
