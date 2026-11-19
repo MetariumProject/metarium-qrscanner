@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: mediastream:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Scan a metarium:// QR code and see what it names. Static page: hosts nothing, saves nothing, sends nothing.">
+  <title>metarium QR scanner</title>
+  <link rel="stylesheet" href="app/style.css">
+  <script src="vendor/jsqr-1.4.0/jsQR.js"></script>
+  <script type="module" src="app/scanner.mjs"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1><code>metarium://</code> scanner</h1>
+    <p>Reads the code on this device and shows what it names. This page hosts nothing, saves nothing and sends nothing.</p>
+    <nav><a href="generate.html">Make a test code</a><a href="SPEC.md">The scheme</a></nav>
+  </header>
+
+  <section class="card" aria-label="Scanner">
+    <div class="viewfinder" id="viewfinder">
+      <video id="video" playsinline muted hidden></video>
+      <div class="frame" id="frame" hidden></div>
+      <div class="idle" id="idle">Camera is off.</div>
+    </div>
+    <div class="row">
+      <button class="primary" id="camera-btn" type="button">Start camera</button>
+      <label class="button" for="file">Scan an image</label>
+      <input class="hidden" type="file" id="file" accept="image/*">
+    </div>
+    <p class="note" id="camera-note"></p>
+  </section>
+
+  <section class="card" id="result" hidden aria-live="polite">
+    <p class="status" id="status"></p>
+    <div id="fields-wrap">
+      <dl class="fields">
+        <div><dt>Chain</dt><dd><span id="f-chain"></span><div class="mono muted" id="f-genesis"></div></dd></div>
+        <div><dt>Channel</dt><dd class="mono" id="f-channel"></dd></div>
+        <div><dt>Path</dt><dd class="mono" id="f-path"></dd></div>
+        <div><dt>Version</dt><dd id="f-kuri"></dd></div>
+        <div><dt>Label</dt><dd id="f-label"></dd></div>
+      </dl>
+      <p class="uri" id="f-uri"></p>
+      <div class="row">
+        <button type="button" id="copy-btn">Copy URI</button>
+        <a class="button primary" id="room-link" hidden target="_blank" rel="noopener noreferrer">Open in your room</a>
+      </div>
+      <p class="note" id="room-note"></p>
+    </div>
+    <div id="raw-wrap" hidden>
+      <pre class="raw" id="raw"></pre>
+    </div>
+    <div class="row"><button type="button" id="again-btn">Scan another</button></div>
+  </section>
+
+  <footer>
+    Open source. Anyone can host a copy; it is a few static files.
+    Decoding by <a href="https://github.com/cozmo/jsQR">jsQR</a> 1.4.0 (Apache-2.0), bundled.
+  </footer>
+</main>
+</body>
+</html>

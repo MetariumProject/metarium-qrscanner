@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>metarium QR generator</title>
+  <link rel="stylesheet" href="app/style.css">
+  <script src="vendor/qrcode-generator-1.4.4/qrcode.js"></script>
+  <script src="vendor/jsqr-1.4.0/jsQR.js"></script>
+  <script type="module" src="app/generate.mjs"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1><code>metarium://</code> test codes</h1>
+    <p>Builds a code in this tab for testing the scanner. Nothing leaves the page.</p>
+    <nav><a href="index.html">Scanner</a><a href="SPEC.md">The scheme</a></nav>
+  </header>
+
+  <section class="card">
+    <form id="form" autocomplete="off">
+      <label class="field"><span>Paste a URI (fills the fields)</span>
+        <input type="text" class="mono-input" id="paste" placeholder="metarium://0x…/7/path" spellcheck="false">
+      </label>
+      <label class="field"><span>Chain</span>
+        <select id="chain"></select>
+      </label>
+      <label class="field" id="genesis-field"><span>Genesis hash</span>
+        <input type="text" class="mono-input" id="genesis" placeholder="0x…" spellcheck="false">
+      </label>
+      <label class="field"><span>Channel</span>
+        <input type="number" id="channel" min="0" step="1" value="7" inputmode="numeric">
+      </label>
+      <label class="field"><span>Lookup path</span>
+        <input type="text" class="mono-input" id="path" value="/graph/test/hello.yobj" spellcheck="false">
+      </label>
+      <label class="field"><span>Version pin (optional, blake3://…)</span>
+        <input type="text" class="mono-input" id="kuri" placeholder="blake3://" spellcheck="false">
+      </label>
+      <label class="check"><input type="checkbox" id="use-label">
+        <span>Add a label. <span class="muted">It is printed on the code: anyone who scans it reads it.</span></span>
+      </label>
+      <label class="field" id="label-field" hidden><span>Label</span>
+        <input type="text" id="label" maxlength="256">
+      </label>
+    </form>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <p class="uri" id="uri"></p>
+    <p class="error" id="error" hidden></p>
+    <div class="qr-out" id="qr-out"><canvas id="qr" width="1" height="1" aria-label="QR code"></canvas></div>
+    <div class="row">
+      <a class="button" id="download" download="metarium-qr.png">Save PNG</a>
+      <button type="button" id="check-btn">Decode it back</button>
+    </div>
+    <p class="note" id="check"></p>
+  </section>
+</main>
+</body>
+</html>
